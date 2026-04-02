@@ -1,0 +1,179 @@
+---
+import ProjectCard from "../components/ProjectCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import WritingCard from "../components/WritingCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getFeaturedProjects, getFeaturedWriting } from "../lib/content";
+import {
+  capabilityPillars,
+  currentFocus,
+  proofPoints,
+  selectedGitHubWork,
+  siteConfig
+} from "../data/site";
+
+const featuredProjects = (await getFeaturedProjects()).slice(0, 3);
+const writingHighlights = (await getFeaturedWriting()).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${siteConfig.name} | Technical Business Analyst`}
+  description={siteConfig.description}
+>
+  <div class="shell hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">{siteConfig.role}</p>
+        <h1>Business clarity with systems depth.</h1>
+        <p class="lede">{siteConfig.shortBio}</p>
+
+        <div class="button-row">
+          <a class="button" href="/projects/">View Projects</a>
+          <a class="button secondary" href="/contact/">Start a Conversation</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <p class="eyebrow">Positioning</p>
+        <p class="body-large">
+          I bring the core strengths of a traditional Business Analyst with deeper fluency across
+          implementations, integrations, data workflows, and practical AI.
+        </p>
+        <div class="divider"></div>
+        <ul class="list-clean">
+          <li><strong>Focus:</strong> Enterprise systems, connected processes, and decision support.</li>
+          <li><strong>Approach:</strong> Translate ambiguity into structured execution across teams.</li>
+          <li><strong>Value:</strong> Keep business needs grounded in how systems, data, and delivery actually work.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="shell grid-4">
+      {
+        proofPoints.map((point) => (
+          <article class="surface stat">
+            <span class="stat-label">{point.label}</span>
+            <strong class="stat-value">{point.value}</strong>
+            <p class="muted">{point.detail}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Core Strengths"
+        title="Built for complex business environments."
+        intro="The goal is not just better documentation. It is better alignment, cleaner execution, and decisions that hold up under technical reality."
+      />
+
+      <div class="pillars">
+        {
+          capabilityPillars.map((pillar) => (
+            <article>
+              <h3>{pillar.title}</h3>
+              <p>{pillar.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Featured Case Studies"
+        title="Work that connects process, systems, and outcomes."
+        intro="Each project highlights a different blend of business analysis, technical depth, and delivery leadership."
+      />
+
+      <div class="cards">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Current Focus"
+        title="Applied AI and modern tooling, used with intent."
+        intro="I stay current on emerging technology, but the emphasis is always practical adoption: where it helps quality, speed, and decision-making."
+      />
+
+      <div class="grid-2">
+        {
+          currentFocus.map((item) => (
+            <article class="card">
+              <p>{item}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Selected GitHub Work"
+        title="Curated technical work, not a noisy activity stream."
+        intro="Version 1 keeps this intentional: a few representative artifacts that reinforce technical credibility without overwhelming the story."
+      />
+
+      <div class="grid-3">
+        {
+          selectedGitHubWork.map((item) => (
+            <article class="card">
+              <div class="meta-row">
+                <span class="chip">{item.meta}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
+              <div class="inline-actions">
+                <a class="arrow-link" href={item.href} target="_blank" rel="noreferrer">
+                  Open repository
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <SectionHeading
+        eyebrow="Writing Highlights"
+        title="Practical thinking on systems, data, and modern analysis."
+        intro="Selected Medium articles that reflect how I evaluate trends, frame problems, and turn new tools into practical capability."
+      />
+
+      <div class="cards">
+        {writingHighlights.map((entry) => <WritingCard entry={entry} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="surface surface-strong card">
+        <p class="eyebrow">Contact</p>
+        <h2>Looking for a Business Analyst who can work across the business-technical line?</h2>
+        <p class="body-large">{siteConfig.availability}</p>
+        <div class="button-row">
+          <a class="button" href="/contact/">Get in touch</a>
+          <a class="button ghost" href={`mailto:${siteConfig.email}`}>
+            Email directly
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

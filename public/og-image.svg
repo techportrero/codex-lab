@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f4ef" />
+      <stop offset="100%" stop-color="#e4e6df" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1080" cy="80" r="220" fill="#d6dbd6" opacity="0.7" />
+  <circle cx="150" cy="560" r="240" fill="#d9d9d2" opacity="0.8" />
+  <rect x="70" y="70" width="1060" height="490" rx="36" fill="rgba(255,255,255,0.72)" stroke="rgba(23,23,23,0.12)" />
+  <text x="110" y="180" fill="#5f5b54" font-family="JetBrains Mono, monospace" font-size="24" letter-spacing="4">TECHNICAL BUSINESS ANALYST</text>
+  <text x="110" y="290" fill="#171717" font-family="Manrope, sans-serif" font-size="78" font-weight="700" letter-spacing="-4">Business clarity</text>
+  <text x="110" y="370" fill="#171717" font-family="Manrope, sans-serif" font-size="78" font-weight="700" letter-spacing="-4">with systems depth.</text>
+  <text x="110" y="460" fill="#5f5b54" font-family="Manrope, sans-serif" font-size="32">
+    Implementations, integrations, analytics, and applied AI.
+  </text>
+</svg>

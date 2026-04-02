@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../data/site";
+
+const contactCards = [
+  {
+    title: "Email",
+    body: "Best for role discussions, consulting conversations, or collaboration inquiries.",
+    href: `mailto:${siteConfig.email}`,
+    label: siteConfig.email
+  },
+  {
+    title: "LinkedIn",
+    body: "The easiest place to connect around professional opportunities and ongoing work.",
+    href: siteConfig.socialLinks.find((link) => link.label === "LinkedIn")?.href ?? "#",
+    label: "Connect on LinkedIn"
+  },
+  {
+    title: "GitHub",
+    body: "Selected technical work, prototypes, and portfolio source code.",
+    href: siteConfig.socialLinks.find((link) => link.label === "GitHub")?.href ?? "#",
+    label: "View GitHub"
+  },
+  {
+    title: "Medium",
+    body: "Writing on systems, analytics, AI, and practical delivery.",
+    href: siteConfig.socialLinks.find((link) => link.label === "Medium")?.href ?? "#",
+    label: "Read on Medium"
+  },
+  {
+    title: "X",
+    body: "Quick takes on technology trends, tools, and what is actually useful in practice.",
+    href: siteConfig.socialLinks.find((link) => link.label === "X")?.href ?? "#",
+    label: "Follow on X"
+  },
+  {
+    title: "Support",
+    body: "Buy Me a Coffee if you want to support experiments, writing, or small practical demos.",
+    href: siteConfig.buyMeACoffeeUrl,
+    label: "Buy Me a Coffee"
+  }
+];
+---
+
+<BaseLayout title={`Contact | ${siteConfig.name}`} description="Contact and social links.">
+  <div class="shell page-intro">
+    <p class="eyebrow">Contact</p>
+    <h1 class="page-title">Let&apos;s talk about better systems, better decisions, and better execution.</h1>
+    <p class="lede">
+      {siteConfig.availability} If you are hiring, exploring a consulting engagement, or just want
+      to compare notes on business analysis and emerging tools, I&apos;d be glad to connect.
+    </p>
+    <div class="button-row">
+      <a class="button" href={`mailto:${siteConfig.email}`}>Email Me</a>
+      <a class="button secondary" href="/projects/">See My Work</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="shell contact-grid">
+      {
+        contactCards.map((card) => (
+          <article class="contact-card">
+            <p class="eyebrow">{card.title}</p>
+            <h2>{card.label}</h2>
+            <p>{card.body}</p>
+            <a
+              class="arrow-link"
+              href={card.href}
+              target={card.href.startsWith("http") ? "_blank" : undefined}
+              rel={card.href.startsWith("http") ? "noreferrer" : undefined}
+            >
+              Open
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

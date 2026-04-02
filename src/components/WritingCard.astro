@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"writing">;
+}
+
+const { entry } = Astro.props;
+const publishedDate = entry.data.publishedAt.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric"
+});
+---
+
+<article class="card writing-card">
+  <header>
+    <div class="meta-row">
+      <span class="chip">{entry.data.source}</span>
+      <span class="chip">{publishedDate}</span>
+    </div>
+    <h3>{entry.data.title}</h3>
+    <p>{entry.data.summary}</p>
+  </header>
+
+  {entry.data.tags.length > 0 && (
+    <div class="chip-row">
+      {entry.data.tags.map((tag) => <span class="chip">{tag}</span>)}
+    </div>
+  )}
+
+  <footer>
+    <span class="meta">External article</span>
+    <a class="arrow-link" href={entry.data.url} target="_blank" rel="noreferrer">
+      Read on Medium
+    </a>
+  </footer>
+</article>

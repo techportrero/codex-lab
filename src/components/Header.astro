@@ -1,0 +1,44 @@
+---
+import { navigationLinks, siteConfig } from "../data/site";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const normalizePath = (path: string) => {
+  if (path === "/") {
+    return path;
+  }
+
+  return path.replace(/\/+$/, "");
+};
+
+const currentPath = normalizePath(Astro.url.pathname);
+const isCurrentLink = (href: string) => {
+  const normalizedHref = normalizePath(href);
+
+  if (normalizedHref === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+};
+---
+
+<header class="shell">
+  <div class="nav-shell">
+    <a class="brand" href="/" aria-label={`${siteConfig.name} home`}>
+      <strong>{siteConfig.name}</strong>
+      <span>{siteConfig.role}</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      {
+        navigationLinks.map((link) => (
+          <a href={link.href} aria-current={isCurrentLink(link.href) ? "page" : undefined}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <ThemeToggle />
+  </div>
+</header>

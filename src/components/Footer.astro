@@ -1,0 +1,37 @@
+---
+import { siteConfig } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-grid surface surface-strong">
+      <div class="footer-copy">
+        <p class="eyebrow">Let&apos;s Connect</p>
+        <h2>{siteConfig.name}</h2>
+        <p>{siteConfig.shortBio}</p>
+      </div>
+
+      <div class="footer-social" aria-label="Social links">
+        {
+          siteConfig.socialLinks.map((link) => (
+            <a class="pill" href={link.href} target="_blank" rel="noreferrer">
+              {link.label}
+            </a>
+          ))
+        }
+        <a class="pill" href={`mailto:${siteConfig.email}`}>
+          Email
+        </a>
+        <a class="pill" href={siteConfig.buyMeACoffeeUrl} target="_blank" rel="noreferrer">
+          Buy Me a Coffee
+        </a>
+      </div>
+    </div>
+
+    <p class="footer-note">
+      Copyright {year} {siteConfig.name}. Built with Astro and designed for clarity, speed, and practical credibility.
+    </p>
+  </div>
+</footer>

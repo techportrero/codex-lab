@@ -1,0 +1,51 @@
+---
+import ProjectCard from "../../components/ProjectCard.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { siteConfig } from "../../data/site";
+import { categoryLabels, getPublishedProjects } from "../../lib/content";
+
+const projects = await getPublishedProjects();
+const categoryOrder = ["implementations", "integrations", "data-analytics", "applied-ai"] as const;
+
+const groupedProjects = categoryOrder.map((category) => ({
+  category,
+  title: categoryLabels[category],
+  projects: projects.filter((project) => project.data.category === category)
+}));
+---
+
+<BaseLayout
+  title={`Projects | ${siteConfig.name}`}
+  description="Case studies covering enterprise implementations, integrations, analytics, and applied AI."
+>
+  <div class="shell page-intro">
+    <p class="eyebrow">Projects</p>
+    <h1 class="page-title">Case studies that show how I work.</h1>
+    <p class="lede">
+      These examples are structured around the environments where I tend to add the most value:
+      enterprise implementations, systems integration, data-driven decision support, and practical AI.
+    </p>
+  </div>
+
+  <section class="section">
+    <div class="shell">
+      {
+        groupedProjects.map((group) =>
+          group.projects.length > 0 && (
+            <div class="category-section">
+              <SectionHeading
+                eyebrow="Category"
+                title={group.title}
+                intro={`Representative work in ${group.title.toLowerCase()} environments.`}
+              />
+              <div class="cards">
+                {group.projects.map((project) => <ProjectCard project={project} />)}
+              </div>
+            </div>
+          )
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

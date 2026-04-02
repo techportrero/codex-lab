@@ -1,0 +1,39 @@
+---
+import { categoryLabels } from "../lib/content";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="card project-card">
+  <header>
+    <div class="meta-row">
+      <span class="chip">{categoryLabels[project.data.category]}</span>
+      <span class="chip">{project.data.year}</span>
+    </div>
+
+    <h3>{project.data.title}</h3>
+    <p>{project.data.summary}</p>
+  </header>
+
+  {project.data.metrics && project.data.metrics.length > 0 && (
+    <div class="chip-row">
+      {project.data.metrics.map((metric) => <span class="pill">{metric}</span>)}
+    </div>
+  )}
+
+  <div class="chip-row">
+    {project.data.systems.slice(0, 3).map((system) => <span class="chip">{system}</span>)}
+  </div>
+
+  <footer>
+    <span class="meta">{project.data.role}</span>
+    <a class="arrow-link" href={`/projects/${project.slug}/`}>
+      View case study
+    </a>
+  </footer>
+</article>

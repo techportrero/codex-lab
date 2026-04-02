@@ -1,0 +1,56 @@
+<div class="theme-toggle" data-theme-toggle>
+  <button type="button" data-theme-option="system" aria-pressed="true">System</button>
+  <button type="button" data-theme-option="light" aria-pressed="false">Light</button>
+  <button type="button" data-theme-option="dark" aria-pressed="false">Dark</button>
+</div>
+
+<script is:inline>
+  const storageKey = "portfolio-theme";
+  const root = document.documentElement;
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const resolveTheme = (theme) => {
+    if (theme === "system") {
+      return mediaQuery.matches ? "dark" : "light";
+    }
+
+    return theme;
+  };
+
+  const applyTheme = (theme) => {
+    root.dataset.themePreference = theme;
+    root.dataset.theme = resolveTheme(theme);
+
+    document.querySelectorAll("[data-theme-option]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.themeOption === theme));
+    });
+  };
+
+  const savedTheme = localStorage.getItem(storageKey) ?? root.dataset.themePreference ?? "system";
+  applyTheme(savedTheme);
+
+  document.querySelector("[data-theme-toggle]")?.addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (!(target instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const theme = target.dataset.themeOption;
+
+    if (!theme) {
+      return;
+    }
+
+    localStorage.setItem(storageKey, theme);
+    applyTheme(theme);
+  });
+
+  mediaQuery.addEventListener("change", () => {
+    const theme = localStorage.getItem(storageKey) ?? "system";
+
+    if (theme === "system") {
+      applyTheme("system");
+    }
+  });
+</script>
